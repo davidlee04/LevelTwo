@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,8 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
-	LeagueInvaders leagueInvaders;
 	GameObject gameObject;
+	ObjectManager manager = new ObjectManager();
+	Rocketship ship = new Rocketship(250, 700, 50, 50);
 
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
@@ -20,10 +22,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	Timer timer;
 
+	Font titleFont;
+	Font startFont;
+	Font instructionsFont;
+
 	public GamePanel() {
 		timer = new Timer(1000 / 60, this);
 		gameObject = new GameObject();
-		leagueInvaders = new LeagueInvaders();
+		titleFont = new Font("Arial", Font.PLAIN, 48);
+		startFont = new Font("Arial", Font.PLAIN, 24);
+		instructionsFont = new Font("Arial", Font.PLAIN, 24);
+		manager.addObject(ship);
 	}
 
 	void startGame() {
@@ -42,7 +51,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	void drawMenuState(Graphics g) {
 		g.setColor(Color.BLUE);
-		g.fillRect(0, 0, leagueInvaders.WIDTH, leagueInvaders.HEIGHT);
+		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+		g.setFont(titleFont);
+		g.setColor(Color.YELLOW);
+		g.drawString("LEAGUE INVADERS", 20, 200);
+		g.setFont(startFont);
+		g.drawString("Press ENTER to start", 125, 300);
+		g.setFont(instructionsFont);
+		g.drawString("Press SPACE for instruction", 100, 400);
 	}
 
 	void updateMenuState() {
@@ -51,16 +67,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	void drawGameState(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, leagueInvaders.WIDTH, leagueInvaders.HEIGHT);
+		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+		manager.draw(g);
 	}
 
 	void updateGameState() {
+		manager.update();
 
 	}
 
 	void drawEndState(Graphics g) {
 		g.setColor(Color.RED);
-		g.fillRect(0, 0, leagueInvaders.WIDTH, leagueInvaders.HEIGHT);
+		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
 	}
 
 	void updateEndState() {
@@ -92,9 +110,26 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState < END_STATE) {
 				currentState++;
-			} else if (currentState > END_STATE) {
+			} else if (currentState == END_STATE) {
 				currentState = MENU_STATE;
 			}
+		}
+
+		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+			ship.x = ship.x - ship.speed;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			ship.x = ship.x + ship.speed;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
+			ship.y = ship.y - ship.speed;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+			ship.y = ship.y + ship.speed;
+		}
+
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			manager.addObject(new Projectile(ship.x, ship.y, 10, 10));
 		}
 	}
 
