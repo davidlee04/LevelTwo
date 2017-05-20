@@ -5,7 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -13,6 +16,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	GameObject gameObject;
 	ObjectManager manager = new ObjectManager();
 	Rocketship ship = new Rocketship(250, 700, 50, 50);
+	
+	public static BufferedImage alienImage;
+	public static BufferedImage bulletImage;
+	public static BufferedImage rocketImage;
 
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
@@ -33,6 +40,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		startFont = new Font("Arial", Font.PLAIN, 24);
 		instructionsFont = new Font("Arial", Font.PLAIN, 24);
 		manager.addObject(ship);
+		
+		try {
+			alienImage = ImageIO.read(this.getClass().getResourceAsStream("alien.png"));
+			rocketImage = ImageIO.read(this.getClass().getResourceAsStream("rocket.png"));
+			bulletImage = ImageIO.read(this.getClass().getResourceAsStream("bullet.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	void startGame() {
@@ -72,6 +88,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void updateGameState() {
+		if (ship.isAlive == false) {
+			currentState = END_STATE;
+			manager.reset();
+			ship = new Rocketship(250, 700, 50, 50);
+			manager.addObject(ship);
+		}
+		manager.checkCollision();
+		manager.getScore();
+		manager.manageEnemies();
 		manager.update();
 
 	}
@@ -129,7 +154,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			manager.addObject(new Projectile(ship.x, ship.y, 10, 10));
+			manager.addObject(new Projectile(ship.x + 23, ship.y, 10, 10));
 		}
 	}
 
