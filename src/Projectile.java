@@ -3,7 +3,7 @@ import java.awt.Graphics;
 
 public class Projectile extends GameObject{
 	int speed = 10;
-
+	
 	public Projectile(int x, int y, int width, int height) {
 		super();
 		this.x = x;
