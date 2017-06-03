@@ -24,6 +24,7 @@ public class ZombieShooter {
 		frame.add(panel);
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setVisible(true);
+		frame.addKeyListener(panel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel.startGame();
 	}
