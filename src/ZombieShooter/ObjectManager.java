@@ -15,11 +15,15 @@ public class ObjectManager {
     }
     
     public void draw(Graphics g) {
-    	
+    	for (int i = 0; i < object.size(); i++) {
+			object.get(i).draw(g);
+		}
     }
     
     public void update() {
-    	
+    	for (int i = 0; i < object.size(); i++) {
+			object.get(i).update();
+		}
     }
 
 }

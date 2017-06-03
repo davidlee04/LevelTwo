@@ -19,4 +19,8 @@ public class Crosshair extends GameObject{
 	void update() {
 		
 	}
+	
+	/*int getX() {
+		return mouseX;
+	}*/
 }

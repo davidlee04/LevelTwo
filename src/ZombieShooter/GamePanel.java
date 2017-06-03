@@ -15,6 +15,7 @@ import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	GameObject gameObject;
+	ObjectManager manager = new ObjectManager();
     Crosshair crosshair = new Crosshair(400, 750, 50, 50);
 	
 	Timer timer;
@@ -30,6 +31,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	public GamePanel() {
 		gameObject = new GameObject();
 		timer = new Timer(1000/60, this);
+		manager.addObject(crosshair);
 		
 		try {
 			crosshairImage1 = ImageIO.read(this.getClass().getResourceAsStream("CrosshairOpt1.png"));
@@ -65,11 +67,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	void drawGameState(Graphics g) {
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, ZombieShooter.WIDTH, ZombieShooter.HEIGHT);
-		
+		manager.draw(g);
 	}
 	
 	void updateGameState() {
-		
+		manager.update();
 	}
 	
 	void drawEndState(Graphics g) {
