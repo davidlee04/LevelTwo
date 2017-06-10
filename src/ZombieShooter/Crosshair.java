@@ -2,8 +2,10 @@ package ZombieShooter;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
-public class Crosshair extends GameObject{
+public class Crosshair extends GameObject implements MouseMotionListener{
 	
 	public Crosshair(int x, int y, int width, int height) {
 		this.x = x;
@@ -17,10 +19,20 @@ public class Crosshair extends GameObject{
 	}
 
 	void update() {
-		
+	  
 	}
 	
-	/*int getX() {
-		return mouseX;
-	}*/
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+	    x = e.getX() - 25;
+	    y = e.getY() - 25;
+	}
+	
 }

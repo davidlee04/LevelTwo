@@ -1,5 +1,10 @@
 package ZombieShooter;
 
+import java.awt.Cursor;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+
 import javax.swing.JFrame;
 
 public class ZombieShooter {
@@ -8,6 +13,10 @@ public class ZombieShooter {
 	
 	static final int WIDTH = 800;
 	static final int HEIGHT = 1500;
+	
+	static BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+	
+	static Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0), "blank cursor");
 	
 	public ZombieShooter() {
 		frame = new JFrame();

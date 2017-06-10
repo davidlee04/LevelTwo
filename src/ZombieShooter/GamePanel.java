@@ -1,6 +1,7 @@
 package ZombieShooter;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	GameObject gameObject;
@@ -29,6 +32,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	int currentState = 0;
 	
 	public GamePanel() {
+		addMouseMotionListener(crosshair);
+		
 		gameObject = new GameObject();
 		timer = new Timer(1000/60, this);
 		manager.addObject(crosshair);
@@ -113,6 +118,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 				currentState++;
 			} else if (currentState == END_STATE) {
 				currentState = MENU_STATE;
+			}
+			if (currentState == 1) {
+				this.setCursor(ZombieShooter.blankCursor);
+			}else if (currentState != 1) {
+				this.setCursor(Cursor.getDefaultCursor());
 			}
 		}
 	}
