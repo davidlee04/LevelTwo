@@ -33,9 +33,11 @@ public class HealthBar extends GameObject{
 	}
 	
 	void update() {
-		if(amount == 20) {
+		// makes hearts go down
+		/*if(amount == 20) {
 			amount-=10;
-		}
+			// this ^ determines amount of hearts lost
+		}*/
 	}
 
 }
