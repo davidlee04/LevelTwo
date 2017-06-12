@@ -20,10 +20,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	GameObject gameObject;
 	ObjectManager manager = new ObjectManager();
     Crosshair crosshair = new Crosshair(400, 750, 50, 50);
-	
+    HealthBar heart1 = new HealthBar(0, 0, 60, 60, 20);
+    
 	Timer timer;
 	
 	public static BufferedImage crosshairImage1;
+	public static BufferedImage hearts;
 	
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
@@ -37,9 +39,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		gameObject = new GameObject();
 		timer = new Timer(1000/60, this);
 		manager.addObject(crosshair);
+		manager.addObject(heart1);
 		
 		try {
 			crosshairImage1 = ImageIO.read(this.getClass().getResourceAsStream("CrosshairOpt1.png"));
+			hearts = ImageIO.read(this.getClass().getResourceAsStream("heart.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
