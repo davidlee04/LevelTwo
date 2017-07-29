@@ -40,14 +40,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		
 		gameObject = new GameObject();
 		timer = new Timer(1000/60, this);
-		manager.addObject(crosshair);
 		manager.addObject(heart1);
 		manager.addObject(zombie);
+		manager.addObject(crosshair);
 		
 		try {
 			crosshairImage1 = ImageIO.read(this.getClass().getResourceAsStream("CrosshairOpt1.png"));
 			hearts = ImageIO.read(this.getClass().getResourceAsStream("heart.png"));
-			normalZombie = ImageIO.read(this.getClass().getResourceAsStream("NormalZombieFrame1.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -80,6 +79,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 	void drawGameState(Graphics g) {
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, ZombieShooter.WIDTH, ZombieShooter.HEIGHT);
+		ZombieShooter.zombieImage.paintIcon(this, g, zombie.getX(), zombie.getY());
 		manager.draw(g);
 	}
 	

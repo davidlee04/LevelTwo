@@ -14,11 +14,21 @@ public class NormalZombie extends GameObject{
 	}
  	
 	void draw(Graphics g) {
-		g.drawImage(GamePanel.normalZombie, x, y, width, height, null);
+		
 	}
 	
 	void update() {
-		
+		y++;
+	}
+
+	public int getX() {
+		// TODO Auto-generated method stub
+		return x;
+	}
+
+	public int getY() {
+		// TODO Auto-generated method stub
+		return y;
 	}
 
 }
