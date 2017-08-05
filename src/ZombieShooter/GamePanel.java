@@ -22,12 +22,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
     Crosshair crosshair = new Crosshair(400, 750, 50, 50);
     HealthBar heart1 = new HealthBar(0, 0, 60, 60, 20);
     NormalZombie zombie = new NormalZombie(100, 100, 150, 150);
+    Bow bow = new Bow(450, 580, 500, 500);
     
 	Timer timer;
 	
 	public static BufferedImage crosshairImage1;
 	public static BufferedImage hearts;
 	public static BufferedImage normalZombie;
+	public static BufferedImage normalBow;
 	
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
@@ -43,6 +45,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		manager.addObject(heart1);
 		manager.addObject(zombie);
 		manager.addObject(crosshair);
+		manager.addObject(bow);
 		
 		try {
 			crosshairImage1 = ImageIO.read(this.getClass().getResourceAsStream("CrosshairOpt1.png"));
@@ -80,6 +83,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener{
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, ZombieShooter.WIDTH, ZombieShooter.HEIGHT);
 		ZombieShooter.zombieImage.paintIcon(this, g, zombie.getX(), zombie.getY());
+		ZombieShooter.normalBowImage.paintIcon(this, g, bow.getX(), bow.getY());
 		manager.draw(g);
 	}
 	

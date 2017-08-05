@@ -25,7 +25,8 @@ public class Crosshair extends GameObject implements MouseMotionListener{
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		x = e.getX() - 25;
+	    y = e.getY() - 25;
 	}
 
 	@Override

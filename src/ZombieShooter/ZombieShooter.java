@@ -15,8 +15,9 @@ public class ZombieShooter {
 	GamePanel panel;
 	
 	static ImageIcon zombieImage;
-	Image image;
-	Image newImg;
+	static ImageIcon normalBowImage;
+	/*Image image;
+	Image newImg;*/
 	
 	static final int WIDTH = 800;
 	static final int HEIGHT = 1500;
@@ -29,6 +30,7 @@ public class ZombieShooter {
 		frame = new JFrame();
 		panel = new GamePanel();
 		zombieImage = new ImageIcon(this.getClass().getResource("zombie128x.gif"));
+		normalBowImage = new ImageIcon(this.getClass().getResource("gun wip.png"));
 		/*image = zombieImage.getImage();
 		newImg = image.getScaledInstance(128, 128, Image.SCALE_SMOOTH);
 		zombieImage = new ImageIcon(newImg);*/
