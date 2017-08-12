@@ -2,8 +2,8 @@ package ZombieShooter;
 
 import java.awt.Graphics;
 
-public class Bow extends GameObject{
-	public Bow(int x, int y, int width, int height) {
+public class Gun extends GameObject{
+	public Gun(int x, int y, int width, int height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
