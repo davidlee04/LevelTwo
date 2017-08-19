@@ -84,13 +84,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 	void drawGameState(Graphics g) {
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, ZombieShooter.WIDTH, ZombieShooter.HEIGHT);
-		ZombieShooter.zombieImage.paintIcon(this, g, zombie.getX(), zombie.getY());
+		for (int i = 0; i < gun.ammo; i++) {
+			ZombieShooter.ammo.paintIcon(this, g, 685, i*50-50);
+		}
+		if(zombie.isAlive) {
+			ZombieShooter.zombieImage.paintIcon(this, g, zombie.getX(), zombie.getY());
+		}
+		
 		if (gunFired == true) {
 			ZombieShooter.firingGunImage.paintIcon(this, g, gun.getX(), gun.getY());
 		} else {
 			ZombieShooter.normalGunImage.paintIcon(this, g, gun.getX(), gun.getY());
 		}
 		manager.draw(g);
+		manager.killZombie();
 	}
 
 	void updateGameState() {
@@ -141,6 +148,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 				this.setCursor(Cursor.getDefaultCursor());
 			}
 		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_R) {
+			gun.ammo = 10;
+		}
 	}
 
 	@Override
@@ -159,6 +170,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		gunFired = true;
+		gun.ammo--;
 		manager.checkShot();
 
 	}

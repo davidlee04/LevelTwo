@@ -21,4 +21,5 @@ public class GameObject {
 	void update() {
 		
 	}
+	
 }

@@ -47,12 +47,23 @@ public class ObjectManager {
 
 	public void checkShot() {
 		for (int i = 0; i < zombies.size(); i++) {
-			if (crosshair.getX() > zombies.get(i).getX() && crosshair.getX() < zombies.get(i).getX() + 64
-					&& crosshair.getY() > zombies.get(i).getY() && crosshair.getY() < zombies.get(i).getY() + 64) {
+			if (crosshair.getX() > zombies.get(i).getX() + 10 && crosshair.getX() < zombies.get(i).getX() + 68
+					&& crosshair.getY() > zombies.get(i).getY()-10 && crosshair.getY() < zombies.get(i).getY() + 95) {
 				zombies.get(i).isAlive = false;
-				System.out.println("test");
 			}
 		}
+	}
+	
+	public void killZombie() {
+		for(int i = 0; i < zombies.size(); i++) {
+			if(zombies.get(i).isAlive == false) {
+				zombies.remove(i);
+			}
+		}
+	}
+	
+	public void updateAmmo() {
+		
 	}
 
 }
