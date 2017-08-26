@@ -2,15 +2,21 @@ package ZombieShooter;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ObjectManager {
 	ArrayList<GameObject> object;
 	ArrayList<NormalZombie> zombies;
 	Crosshair crosshair;
+	HealthBar heart;
 
-	public ObjectManager() {
+	public ObjectManager(HealthBar heart) {
+		this.heart = heart;
 		object = new ArrayList<GameObject>();
 		zombies = new ArrayList<NormalZombie>();
+		for (int i = 0; i < 50; i++) {
+			zombies.add(new NormalZombie(new Random().nextInt(800), 100, 100, 100, 5, 1));
+		}
 	}
 
 	public void addObject(GameObject o) {
@@ -62,8 +68,23 @@ public class ObjectManager {
 		}
 	}
 	
-	public void updateAmmo() {
-		
+	public void checkZombieHit() {
+		for(int i = 0; i < zombies.size(); i++) {
+			if(zombies.get(i).getY() >= ZombieShooter.HEIGHT/2+270) {
+				heart.removeHeart();
+				zombies.get(i).isAlive = false;
+			}
+		}
 	}
+	
+	public ArrayList<NormalZombie> getZombies() {
+		return zombies;
+	}
+	
+	
+	
+	
+	
+	
 
 }

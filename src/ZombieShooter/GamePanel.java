@@ -18,10 +18,9 @@ import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener, MouseListener {
 	GameObject gameObject;
-	ObjectManager manager = new ObjectManager();
+	HealthBar heart = new HealthBar(0, 0, 60, 60, 20);
+	ObjectManager manager = new ObjectManager(heart);
 	Crosshair crosshair = new Crosshair(400, 750, 50, 50);
-	HealthBar heart1 = new HealthBar(0, 0, 60, 60, 20);
-	NormalZombie zombie = new NormalZombie(100, 100, 150, 150);
 	Gun gun = new Gun(410, 590, 500, 500);
 
 	Timer timer;
@@ -44,8 +43,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
 		gameObject = new GameObject();
 		timer = new Timer(1000 / 60, this);
-		manager.addObject(heart1);
-		manager.addObject(zombie);
+		manager.addObject(heart);
 		manager.addObject(crosshair);
 		manager.addObject(gun);
 
@@ -85,12 +83,28 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, ZombieShooter.WIDTH, ZombieShooter.HEIGHT);
 		for (int i = 0; i < gun.ammo; i++) {
-			ZombieShooter.ammo.paintIcon(this, g, 685, i*50-50);
+			ZombieShooter.ammo.paintIcon(this, g, 685, i * 50 - 50);
 		}
-		if(zombie.isAlive) {
-			ZombieShooter.zombieImage.paintIcon(this, g, zombie.getX(), zombie.getY());
+		boolean row1 = true;
+		int x = 0;
+		for (int counter = 0; counter < heart.hearts; counter++) {
+			if (row1) {
+				g.drawImage(GamePanel.hearts, x, heart.y, heart.width, heart.height, null);
+			} else {
+				g.drawImage(GamePanel.hearts, x, heart.y + 50, heart.width, heart.height, null);
+			}
+			x += 40;
+			if (x >= 400) {
+				x = 0;
+				row1 = false;
+			}
 		}
-		
+		for (NormalZombie zombie : manager.getZombies()) {
+			if (zombie.isAlive) {
+				ZombieShooter.zombieImage.paintIcon(this, g, zombie.getX(), zombie.getY());
+			}
+		}
+
 		if (gunFired == true) {
 			ZombieShooter.firingGunImage.paintIcon(this, g, gun.getX(), gun.getY());
 		} else {
@@ -98,6 +112,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 		}
 		manager.draw(g);
 		manager.killZombie();
+		manager.checkZombieHit();
 	}
 
 	void updateGameState() {
@@ -148,7 +163,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 				this.setCursor(Cursor.getDefaultCursor());
 			}
 		}
-		
+
 		if (e.getKeyCode() == KeyEvent.VK_R) {
 			gun.ammo = 10;
 		}
@@ -169,9 +184,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		gunFired = true;
-		gun.ammo--;
-		manager.checkShot();
+		if (gun.ammo != 0) {
+			gunFired = true;
+			gun.ammo--;
+			manager.checkShot();
+		}
 
 	}
 
