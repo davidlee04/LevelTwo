@@ -2,9 +2,10 @@ package ZombieShooter;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class ObjectManager {
+	ZombieSpawn spawner = new ZombieSpawn();
+
 	ArrayList<GameObject> object;
 	ArrayList<NormalZombie> zombies;
 	Crosshair crosshair;
@@ -13,10 +14,7 @@ public class ObjectManager {
 	public ObjectManager(HealthBar heart) {
 		this.heart = heart;
 		object = new ArrayList<GameObject>();
-		zombies = new ArrayList<NormalZombie>();
-		for (int i = 0; i < 50; i++) {
-			zombies.add(new NormalZombie(new Random().nextInt(800), 100, 100, 100, 5, 1));
-		}
+		zombies = spawner.getNextWave();
 	}
 
 	public void addObject(GameObject o) {
@@ -54,37 +52,40 @@ public class ObjectManager {
 	public void checkShot() {
 		for (int i = 0; i < zombies.size(); i++) {
 			if (crosshair.getX() > zombies.get(i).getX() + 10 && crosshair.getX() < zombies.get(i).getX() + 68
-					&& crosshair.getY() > zombies.get(i).getY()-10 && crosshair.getY() < zombies.get(i).getY() + 95) {
+					&& crosshair.getY() > zombies.get(i).getY() - 10 && crosshair.getY() < zombies.get(i).getY() + 95) {
 				zombies.get(i).isAlive = false;
 			}
 		}
 	}
-	
+
 	public void killZombie() {
-		for(int i = 0; i < zombies.size(); i++) {
-			if(zombies.get(i).isAlive == false) {
+		if (zombies.size() == 0) {
+			spawner.getNextWave();
+		}
+		for (int i = zombies.size() - 1; i >= 0; i--) {
+			if (zombies.get(i).isAlive == false) {
 				zombies.remove(i);
 			}
 		}
 	}
-	
+
 	public void checkZombieHit() {
-		for(int i = 0; i < zombies.size(); i++) {
-			if(zombies.get(i).getY() >= ZombieShooter.HEIGHT/2+270) {
-				heart.removeHeart();
+		System.out.println(zombies.size());
+		for (int i = zombies.size() - 1; i >= 0; i--) {
+			if (zombies.get(i).getY() >= ZombieShooter.HEIGHT / 2 + 270) {
+				heart.removeHeart(zombies.get(i).getDamage());
 				zombies.get(i).isAlive = false;
+				System.out.println(zombies.get(i).getDamage() + "DAMAGE DEALT");
 			}
 		}
 	}
-	
-	public ArrayList<NormalZombie> getZombies() {
+
+	/*
+	 * public ArrayList<NormalZombie> getZombies() { return zombies; }
+	 */
+
+	public ArrayList<NormalZombie> spawnZombies() {
 		return zombies;
 	}
-	
-	
-	
-	
-	
-	
 
 }

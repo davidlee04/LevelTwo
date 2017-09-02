@@ -87,6 +87,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 		}
 		boolean row1 = true;
 		int x = 0;
+
+		for (NormalZombie zombie : manager.spawnZombies()) {
+			if (zombie.isAlive) {
+				ZombieShooter.zombieImage.paintIcon(this, g, zombie.getX(), zombie.getY());
+			}
+		}
+
+		if (gunFired == true) {
+			ZombieShooter.firingGunImage.paintIcon(this, g, gun.getX(), gun.getY());
+		} else {
+			ZombieShooter.normalGunImage.paintIcon(this, g, gun.getX(), gun.getY());
+		}
+
 		for (int counter = 0; counter < heart.hearts; counter++) {
 			if (row1) {
 				g.drawImage(GamePanel.hearts, x, heart.y, heart.width, heart.height, null);
@@ -99,20 +112,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 				row1 = false;
 			}
 		}
-		for (NormalZombie zombie : manager.getZombies()) {
-			if (zombie.isAlive) {
-				ZombieShooter.zombieImage.paintIcon(this, g, zombie.getX(), zombie.getY());
-			}
-		}
 
-		if (gunFired == true) {
-			ZombieShooter.firingGunImage.paintIcon(this, g, gun.getX(), gun.getY());
-		} else {
-			ZombieShooter.normalGunImage.paintIcon(this, g, gun.getX(), gun.getY());
-		}
 		manager.draw(g);
-		manager.killZombie();
 		manager.checkZombieHit();
+		manager.killZombie();
 	}
 
 	void updateGameState() {
@@ -152,10 +155,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			if (currentState < END_STATE) {
+			if (currentState < GAME_STATE) {
 				currentState++;
 			} else if (currentState == END_STATE) {
-				currentState = MENU_STATE;
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					currentState = MENU_STATE;
+				}
+			} else if (currentState == GAME_STATE && heart.hearts == 0) {
+				currentState = END_STATE;
 			}
 			if (currentState == 1) {
 				this.setCursor(ZombieShooter.blankCursor);
