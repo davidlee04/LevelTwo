@@ -16,6 +16,7 @@ public class ZombieShooter {
 	static ImageIcon normalGunImage;
 	static ImageIcon firingGunImage;
 	static ImageIcon ammo;
+	static ImageIcon speedZombie;
 	/*
 	 * Image image; Image newImg;
 	 */
@@ -31,10 +32,11 @@ public class ZombieShooter {
 	public ZombieShooter() {
 		frame = new JFrame();
 		panel = new GamePanel();
-		zombieImage = new ImageIcon(this.getClass().getResource("zombie128x.gif"));
+		zombieImage = new ImageIcon(this.getClass().getResource("normalzombie128x.gif"));
 		normalGunImage = new ImageIcon(this.getClass().getResource("pistol.png"));
 		firingGunImage = new ImageIcon(this.getClass().getResource("pistol_firing.png"));
 		ammo = new ImageIcon(this.getClass().getResource("ammo.png"));
+		speedZombie = new ImageIcon(this.getClass().getResource("speedzombie 128x.gif"));
 		/*
 		 * image = zombieImage.getImage(); newImg = image.getScaledInstance(128,
 		 * 128, Image.SCALE_SMOOTH); zombieImage = new ImageIcon(newImg);

@@ -21,10 +21,6 @@ public class ObjectManager {
 		object.add(o);
 	}
 
-	public void addObject(NormalZombie z) {
-		zombies.add(z);
-	}
-
 	public void addObject(Crosshair c) {
 		crosshair = c;
 	}
@@ -60,7 +56,7 @@ public class ObjectManager {
 
 	public void killZombie() {
 		if (zombies.size() == 0) {
-			spawner.getNextWave();
+			zombies = spawner.getNextWave();
 		}
 		for (int i = zombies.size() - 1; i >= 0; i--) {
 			if (zombies.get(i).isAlive == false) {
@@ -70,12 +66,12 @@ public class ObjectManager {
 	}
 
 	public void checkZombieHit() {
-		System.out.println(zombies.size());
+		//System.out.println(zombies.size());
 		for (int i = zombies.size() - 1; i >= 0; i--) {
 			if (zombies.get(i).getY() >= ZombieShooter.HEIGHT / 2 + 270) {
 				heart.removeHeart(zombies.get(i).getDamage());
 				zombies.get(i).isAlive = false;
-				System.out.println(zombies.get(i).getDamage() + "DAMAGE DEALT");
+				//System.out.println(zombies.get(i).getDamage() + "DAMAGE DEALT");
 			}
 		}
 	}

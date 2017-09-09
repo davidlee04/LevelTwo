@@ -90,7 +90,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
 		for (NormalZombie zombie : manager.spawnZombies()) {
 			if (zombie.isAlive) {
-				ZombieShooter.zombieImage.paintIcon(this, g, zombie.getX(), zombie.getY());
+				if (zombie instanceof SpeedZombie) {
+					ZombieShooter.speedZombie.paintIcon(this, g, zombie.getX(), zombie.getY());
+				} else {
+					ZombieShooter.zombieImage.paintIcon(this, g, zombie.getX(), zombie.getY());
+				}
 			}
 		}
 
@@ -172,7 +176,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_R) {
-			gun.ammo = 10;
+			gun.ammo = 5;
 		}
 	}
 
