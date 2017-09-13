@@ -17,6 +17,8 @@ public class ZombieShooter {
 	static ImageIcon firingGunImage;
 	static ImageIcon ammo;
 	static ImageIcon speedZombie;
+	static ImageIcon heavyZombie;
+	static ImageIcon enemyHealth;
 	/*
 	 * Image image; Image newImg;
 	 */
@@ -37,6 +39,8 @@ public class ZombieShooter {
 		firingGunImage = new ImageIcon(this.getClass().getResource("pistol_firing.png"));
 		ammo = new ImageIcon(this.getClass().getResource("ammo.png"));
 		speedZombie = new ImageIcon(this.getClass().getResource("speedzombie 128x.gif"));
+		heavyZombie = new ImageIcon(this.getClass().getResource("heavy128x.gif"));
+		enemyHealth = new ImageIcon(this.getClass().getResource("enemyhealthbar128x(2).gif"));
 		/*
 		 * image = zombieImage.getImage(); newImg = image.getScaledInstance(128,
 		 * 128, Image.SCALE_SMOOTH); zombieImage = new ImageIcon(newImg);

@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 public class NormalZombie extends GameObject {
 	// int amount;
-	int speed = 2;
+	int speed = 3;
 	int damage = 1;
 
 	public NormalZombie(int x, int y) {
