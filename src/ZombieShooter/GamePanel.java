@@ -185,9 +185,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 			}
 		}
 
-		if (e.getKeyCode() == KeyEvent.VK_R) {
+		/*if (  /*e.getKeyCode() == KeyEvent.VK_R) {
 			gun.ammo = 5;
-		}
+		}*/
 	}
 
 	@Override
