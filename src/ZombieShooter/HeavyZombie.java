@@ -7,6 +7,7 @@ public class HeavyZombie extends NormalZombie{
 		
 		speed = 1;
 	    damage = 3;
+	    health = 4;
 	}
 
 }

@@ -2,6 +2,7 @@ package ZombieShooter;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.awt.Graphics;
 
 public class ObjectManager {
 	ZombieSpawn spawner = new ZombieSpawn();
@@ -49,7 +50,12 @@ public class ObjectManager {
 		for (int i = 0; i < zombies.size(); i++) {
 			if (crosshair.getX() > zombies.get(i).getX() + 10 && crosshair.getX() < zombies.get(i).getX() + 68
 					&& crosshair.getY() > zombies.get(i).getY() - 10 && crosshair.getY() < zombies.get(i).getY() + 95) {
-				zombies.get(i).isAlive = false;
+				zombies.get(i).healthWidth = zombies.get(i).healthWidth - (zombies.get(i).healthWidth*(1.0/zombies.get(i).health));
+				zombies.get(i).healthX = zombies.get(i).getX();
+				zombies.get(i).health--;
+				if(zombies.get(i).health == 0) {
+					zombies.get(i).isAlive = false;
+				}
 			}
 		}
 	}

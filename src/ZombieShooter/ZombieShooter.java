@@ -4,7 +4,9 @@ import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -18,7 +20,8 @@ public class ZombieShooter {
 	static ImageIcon ammo;
 	static ImageIcon speedZombie;
 	static ImageIcon heavyZombie;
-	static ImageIcon enemyHealth;
+	//static ImageIcon enemyHealth;
+	
 	/*
 	 * Image image; Image newImg;
 	 */
@@ -27,6 +30,7 @@ public class ZombieShooter {
 	static final int HEIGHT = 1500;
 
 	static BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+	static BufferedImage enemyHealth = new BufferedImage(128, 128, BufferedImage.TYPE_INT_ARGB);
 
 	static Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(cursorImg, new Point(0, 0),
 			"blank cursor");
@@ -40,7 +44,13 @@ public class ZombieShooter {
 		ammo = new ImageIcon(this.getClass().getResource("ammo.png"));
 		speedZombie = new ImageIcon(this.getClass().getResource("speedzombie 128x.gif"));
 		heavyZombie = new ImageIcon(this.getClass().getResource("heavy128x.gif"));
-		enemyHealth = new ImageIcon(this.getClass().getResource("enemyhealthbar128x(2).gif"));
+		try {
+			enemyHealth = ImageIO.read(this.getClass().getResourceAsStream("enemyhealthbar128x(2).gif"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//enemyHealth = new ImageIcon(this.getClass().getResource("enemyhealthbar128x(2).gif"));
 		/*
 		 * image = zombieImage.getImage(); newImg = image.getScaledInstance(128,
 		 * 128, Image.SCALE_SMOOTH); zombieImage = new ImageIcon(newImg);

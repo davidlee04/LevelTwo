@@ -35,6 +35,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 	final int END_STATE = 2;
 
 	int currentState = 0;
+	int reloadTime = 300;
 	boolean gunFired = false;
 
 	public GamePanel() {
@@ -109,7 +110,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 		for (NormalZombie zombie : manager.spawnZombies()) {
 			if (zombie.isAlive) {
 				if (zombie.isAlive) {
-					ZombieShooter.enemyHealth.paintIcon(this, g, zombie.getX(), zombie.getY()-75);
+					g.setColor(Color.green);
+					g.drawRect(zombie.getHealthX(), zombie.getY()-75, 128, 32);
+					g.fillRect(zombie.getHealthX(), zombie.getY()-75, zombie.getHealthWidth(), 32);
+					//g.drawImage(ZombieShooter.enemyHealth, zombie.getHealthX(), zombie.getY()-75, (int) zombie.healthWidth, 128, null);
 				}
 			}
 		}
@@ -157,6 +161,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 		} else if (currentState == END_STATE) {
 			updateEndState();
 		}
+		
+		reloadTime--;
 	}
 
 	@Override
@@ -185,9 +191,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 			}
 		}
 
-		/*if (  /*e.getKeyCode() == KeyEvent.VK_R) {
-			gun.ammo = 5;
-		}*/
+		if (reloadTime <= 0 && e.getKeyCode() == KeyEvent.VK_R) {
+			reloadTime = 300;
+			gun.ammo = 10;
+		}
 	}
 
 	@Override

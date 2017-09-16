@@ -7,6 +7,7 @@ public class SpeedZombie extends NormalZombie{
 		
 		speed = 6;
 		damage = 1;
+		health = 1;
 	}
 
 }
