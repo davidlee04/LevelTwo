@@ -20,8 +20,9 @@ public class ZombieShooter {
 	static ImageIcon ammo;
 	static ImageIcon speedZombie;
 	static ImageIcon heavyZombie;
-	//static ImageIcon enemyHealth;
-	
+	static ImageIcon heavyZombie6fps;
+	// static ImageIcon enemyHealth;
+
 	/*
 	 * Image image; Image newImg;
 	 */
@@ -44,13 +45,15 @@ public class ZombieShooter {
 		ammo = new ImageIcon(this.getClass().getResource("ammo.png"));
 		speedZombie = new ImageIcon(this.getClass().getResource("speedzombie 128x.gif"));
 		heavyZombie = new ImageIcon(this.getClass().getResource("heavy128x.gif"));
+		heavyZombie6fps = new ImageIcon(this.getClass().getResource("heavy128x6fps.gif"));
 		try {
 			enemyHealth = ImageIO.read(this.getClass().getResourceAsStream("enemyhealthbar128x(2).gif"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//enemyHealth = new ImageIcon(this.getClass().getResource("enemyhealthbar128x(2).gif"));
+		// enemyHealth = new
+		// ImageIcon(this.getClass().getResource("enemyhealthbar128x(2).gif"));
 		/*
 		 * image = zombieImage.getImage(); newImg = image.getScaledInstance(128,
 		 * 128, Image.SCALE_SMOOTH); zombieImage = new ImageIcon(newImg);

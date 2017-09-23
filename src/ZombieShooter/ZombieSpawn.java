@@ -27,7 +27,7 @@ public class ZombieSpawn {
 			currentWave++;
 			System.out.println("TEST-------------");
 			return waveTwo;
-		} else if (currentWave == 2){
+		} else if (currentWave == 2) {
 			currentWave++;
 			return waveThree;
 		} else if (currentWave == 3) {
@@ -51,17 +51,19 @@ public class ZombieSpawn {
 	}
 
 	public void setUpWaveThree() {
-		waveThree.add(new NormalZombie(550, 0));
-		waveThree.add(new NormalZombie(600, 0));
-		waveThree.add(new HeavyZombie(600, 20));
+		// waveThree.add(new NormalZombie(400, 0));
+		// waveThree.add(new NormalZombie(600, 0));
+		waveThree.add(new HeavyZombie(600, 50));
 	}
-	
+
 	public void setUpWaveFour() {
-		waveFour.add(new NormalZombie(300, 0));
-		waveFour.add(new NormalZombie(400, 0));
-		waveFour.add(new SpeedZombie(500, 0));
-		waveFour.add(new SpeedZombie(200, 0));
+		/*
+		 * waveFour.add(new NormalZombie(300, 0)); waveFour.add(new
+		 * NormalZombie(400, 0)); waveFour.add(new SpeedZombie(500, 0));
+		 * waveFour.add(new SpeedZombie(200, 0));
+		 */
 		waveFour.add(new HeavyZombie(450, 30));
+		System.out.println();
 	}
 
 }

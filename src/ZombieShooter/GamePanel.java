@@ -106,14 +106,16 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 		} else {
 			ZombieShooter.normalGunImage.paintIcon(this, g, gun.getX(), gun.getY());
 		}
-		
+
 		for (NormalZombie zombie : manager.spawnZombies()) {
 			if (zombie.isAlive) {
 				if (zombie.isAlive) {
 					g.setColor(Color.green);
-					g.drawRect(zombie.getHealthX(), zombie.getY()-75, 128, 32);
-					g.fillRect(zombie.getHealthX(), zombie.getY()-75, zombie.getHealthWidth(), 32);
-					//g.drawImage(ZombieShooter.enemyHealth, zombie.getHealthX(), zombie.getY()-75, (int) zombie.healthWidth, 128, null);
+					g.drawRect(zombie.getHealthX(), zombie.getY() - 30, 128, 32);
+					g.fillRect(zombie.getHealthX(), zombie.getY() - 30, zombie.getHealthWidth(), 32);
+					// g.drawImage(ZombieShooter.enemyHealth,
+					// zombie.getHealthX(), zombie.getY()-75, (int)
+					// zombie.healthWidth, 128, null);
 				}
 			}
 		}
@@ -128,6 +130,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 			if (x >= 400) {
 				x = 0;
 				row1 = false;
+			}
+		}
+
+		for (NormalZombie zombie : manager.spawnZombies()) {
+			if (zombie.isAlive && zombie instanceof HeavyZombie) {
+				zombie.stampedeStart();
+				System.out.println(zombie.getStampedeTime());
+				if (zombie.getStampedeTime() >= 300) {
+					ZombieShooter.heavyZombie6fps.paintIcon(this, g, zombie.getX(), zombie.getY());
+					zombie.speed = 2;
+				}
+				if (zombie.getStampedeTime() >= 600) {
+					zombie.speed = 5;
+				}
 			}
 		}
 
@@ -161,7 +177,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 		} else if (currentState == END_STATE) {
 			updateEndState();
 		}
-		
+
 		reloadTime--;
 	}
 
