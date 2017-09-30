@@ -93,8 +93,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 			if (zombie.isAlive) {
 				if (zombie instanceof SpeedZombie) {
 					ZombieShooter.speedZombie.paintIcon(this, g, zombie.getX(), zombie.getY());
-				} else if (zombie instanceof HeavyZombie) {
+				} else if (zombie instanceof HeavyZombie && zombie.speed == 1) {
 					ZombieShooter.heavyZombie.paintIcon(this, g, zombie.getX(), zombie.getY());
+				} else if (zombie instanceof HeavyZombie && zombie.speed >= 2) {
+					ZombieShooter.heavyZombie6fps.paintIcon(this, g, zombie.getX(), zombie.getY());
 				} else {
 					ZombieShooter.zombieImage.paintIcon(this, g, zombie.getX(), zombie.getY());
 				}
@@ -137,14 +139,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 			if (zombie.isAlive && zombie instanceof HeavyZombie) {
 				zombie.stampedeStart();
 				System.out.println(zombie.getStampedeTime());
-				if (zombie.getStampedeTime() >= 300) {
-					ZombieShooter.heavyZombie6fps.paintIcon(this, g, zombie.getX(), zombie.getY());
+				if (zombie.getStampedeTime() >= 200) {
 					zombie.speed = 2;
 				}
-				if (zombie.getStampedeTime() >= 600) {
+				if (zombie.getStampedeTime() >= 400) {
 					zombie.speed = 5;
 				}
 			}
+		}
+
+		if (heart.hearts <= 0) {
+			currentState = END_STATE;
 		}
 
 		manager.draw(g);
@@ -160,6 +165,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, ZombieShooter.WIDTH, ZombieShooter.HEIGHT);
 
+		// ZombieShooter.youdied.paintIcon(this, g, 0, 9);
 	}
 
 	void updateEndState() {

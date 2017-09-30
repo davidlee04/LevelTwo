@@ -7,6 +7,9 @@ public class ZombieSpawn {
 	ArrayList<NormalZombie> waveTwo = new ArrayList<NormalZombie>();
 	ArrayList<NormalZombie> waveThree = new ArrayList<NormalZombie>();
 	ArrayList<NormalZombie> waveFour = new ArrayList<NormalZombie>();
+	ArrayList<NormalZombie> waveFive = new ArrayList<NormalZombie>();
+	ArrayList<NormalZombie> waveSix = new ArrayList<NormalZombie>();
+	ArrayList<NormalZombie> waveSeven = new ArrayList<NormalZombie>();
 
 	int currentWave = 0;
 
@@ -17,6 +20,8 @@ public class ZombieSpawn {
 		setUpWaveTwo();
 		setUpWaveThree();
 		setUpWaveFour();
+		setUpWaveFive();
+		setUpWaveSix();
 	}
 
 	public ArrayList<NormalZombie> getNextWave() {
@@ -33,6 +38,12 @@ public class ZombieSpawn {
 		} else if (currentWave == 3) {
 			currentWave++;
 			return waveFour;
+		} else if (currentWave == 4) {
+			currentWave++;
+			return waveFive;
+		} else if (currentWave == 5) {
+			currentWave++;
+			return waveSix;
 		} else {
 			return waveOne;
 		}
@@ -51,19 +62,36 @@ public class ZombieSpawn {
 	}
 
 	public void setUpWaveThree() {
-		// waveThree.add(new NormalZombie(400, 0));
-		// waveThree.add(new NormalZombie(600, 0));
-		waveThree.add(new HeavyZombie(600, 50));
+		waveThree.add(new NormalZombie(300, 0));
+		waveThree.add(new NormalZombie(500, 0));
+		waveThree.add(new HeavyZombie(600, 100));
 	}
 
 	public void setUpWaveFour() {
-		/*
-		 * waveFour.add(new NormalZombie(300, 0)); waveFour.add(new
-		 * NormalZombie(400, 0)); waveFour.add(new SpeedZombie(500, 0));
-		 * waveFour.add(new SpeedZombie(200, 0));
-		 */
+		waveFour.add(new NormalZombie(200, 0));
+		waveFour.add(new NormalZombie(400, 0));
+		waveFour.add(new SpeedZombie(500, 0));
 		waveFour.add(new HeavyZombie(450, 30));
-		System.out.println();
+	}
+
+	public void setUpWaveFive() {
+		waveFive.add(new SpeedZombie(400, 0));
+	}
+
+	public void setUpWaveSix() {
+		waveSix.add(new SpeedZombie(100, 0));
+		waveSix.add(new SpeedZombie(300, 0));
+		waveSix.add(new SpeedZombie(500, 0));
+		waveSix.add(new SpeedZombie(450, 75));
+		waveSix.add(new SpeedZombie(600, 50));
+	}
+
+	public void setUpWaveSeven() {
+		waveSeven.add(new HeavyZombie(400, 30));
+		waveSeven.add(new HeavyZombie(600, 80));
+		waveSeven.add(new HeavyZombie(200, 30));
+		waveSeven.add(new SpeedZombie(200, 0));
+		waveSeven.add(new SpeedZombie(500, 0));
 	}
 
 }

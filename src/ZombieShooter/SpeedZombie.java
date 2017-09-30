@@ -1,12 +1,12 @@
 package ZombieShooter;
 
-public class SpeedZombie extends NormalZombie{
-	
+public class SpeedZombie extends NormalZombie {
+
 	public SpeedZombie(int x, int y) {
 		super(x, y);
-		
+
 		speed = 6;
-		damage = 1;
+		damage = 3;
 		health = 1;
 	}
 

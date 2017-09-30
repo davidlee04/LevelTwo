@@ -21,6 +21,7 @@ public class ZombieShooter {
 	static ImageIcon speedZombie;
 	static ImageIcon heavyZombie;
 	static ImageIcon heavyZombie6fps;
+	static ImageIcon youdied;
 	// static ImageIcon enemyHealth;
 
 	/*
@@ -43,9 +44,10 @@ public class ZombieShooter {
 		normalGunImage = new ImageIcon(this.getClass().getResource("pistol.png"));
 		firingGunImage = new ImageIcon(this.getClass().getResource("pistol_firing.png"));
 		ammo = new ImageIcon(this.getClass().getResource("ammo.png"));
-		speedZombie = new ImageIcon(this.getClass().getResource("speedzombie 128x.gif"));
+		speedZombie = new ImageIcon(this.getClass().getResource("sonic.gif"));
 		heavyZombie = new ImageIcon(this.getClass().getResource("heavy128x.gif"));
 		heavyZombie6fps = new ImageIcon(this.getClass().getResource("heavy128x6fps.gif"));
+		youdied = new ImageIcon(this.getClass().getResource("youdied.jpg"));
 		try {
 			enemyHealth = ImageIO.read(this.getClass().getResourceAsStream("enemyhealthbar128x(2).gif"));
 		} catch (IOException e) {
