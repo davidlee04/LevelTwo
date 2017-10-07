@@ -22,6 +22,7 @@ public class ZombieSpawn {
 		setUpWaveFour();
 		setUpWaveFive();
 		setUpWaveSix();
+		setUpWaveSeven();
 	}
 
 	public ArrayList<NormalZombie> getNextWave() {
@@ -44,6 +45,9 @@ public class ZombieSpawn {
 		} else if (currentWave == 5) {
 			currentWave++;
 			return waveSix;
+		} else if (currentWave == 6) {
+			currentWave++;
+			return waveSeven;
 		} else {
 			return waveOne;
 		}
@@ -84,6 +88,8 @@ public class ZombieSpawn {
 		waveSix.add(new SpeedZombie(500, 0));
 		waveSix.add(new SpeedZombie(450, 75));
 		waveSix.add(new SpeedZombie(600, 50));
+		waveSix.add(new SpeedZombie(650, 0));
+		waveSix.add(new SpeedZombie(350, 50));
 	}
 
 	public void setUpWaveSeven() {
@@ -92,6 +98,7 @@ public class ZombieSpawn {
 		waveSeven.add(new HeavyZombie(200, 30));
 		waveSeven.add(new SpeedZombie(200, 0));
 		waveSeven.add(new SpeedZombie(500, 0));
+		waveSeven.add(new NormalZombie(400, 0));
 	}
 
 }

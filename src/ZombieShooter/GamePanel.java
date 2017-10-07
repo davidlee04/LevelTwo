@@ -13,6 +13,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -37,6 +40,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 	int currentState = 0;
 	int reloadTime = 300;
 	boolean gunFired = false;
+	boolean sound = false;
 
 	public GamePanel() {
 		addMouseMotionListener(crosshair);
@@ -162,14 +166,43 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 	}
 
 	void drawEndState(Graphics g) {
-		g.setColor(Color.RED);
+		g.setColor(Color.black);
 		g.fillRect(0, 0, ZombieShooter.WIDTH, ZombieShooter.HEIGHT);
 
-		// ZombieShooter.youdied.paintIcon(this, g, 0, 9);
+		ZombieShooter.youdied.paintIcon(this, g, 0, 50);
+		playSound("deathsound.wav");
 	}
 
 	void updateEndState() {
 
+	}
+
+	void playSound(String file) {
+		if (!sound) {
+			try {
+				Clip sanic = AudioSystem.getClip();
+				AudioInputStream inputStream = AudioSystem
+						.getAudioInputStream(GamePanel.class.getResourceAsStream(file));
+				sanic.open(inputStream);
+				sanic.start();
+				sound = true;
+
+			} catch (Exception e) {
+
+			}
+		}
+	}
+
+	void playGunshot(String file) {
+		try {
+			Clip shot = AudioSystem.getClip();
+			AudioInputStream inputStream = AudioSystem.getAudioInputStream(GamePanel.class.getResourceAsStream(file));
+			shot.open(inputStream);
+			shot.start();
+
+		} catch (Exception e) {
+
+		}
 	}
 
 	@Override
@@ -214,6 +247,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 		}
 
 		if (reloadTime <= 0 && e.getKeyCode() == KeyEvent.VK_R) {
+			playGunshot("reload.wav");
 			reloadTime = 300;
 			gun.ammo = 10;
 		}
@@ -234,7 +268,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if (gun.ammo != 0) {
+		if (gun.ammo != 0 && currentState == 1) {
+			playGunshot("revolver.wav");
 			gunFired = true;
 			gun.ammo--;
 			manager.checkShot();
