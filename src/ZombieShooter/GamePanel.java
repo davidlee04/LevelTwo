@@ -41,6 +41,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 	int reloadTime = 300;
 	boolean gunFired = false;
 	boolean sound = false;
+	boolean win = false;
 
 	public GamePanel() {
 		addMouseMotionListener(crosshair);
@@ -78,6 +79,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 	void drawMenuState(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, ZombieShooter.WIDTH, ZombieShooter.HEIGHT);
+		ZombieShooter.title.paintIcon(this, g, 0, 0);
 	}
 
 	void updateMenuState() {
@@ -162,15 +164,27 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 	}
 
 	void updateGameState() {
+		if (currentState == 1 && manager.checkWin() == true) {
+			currentState = END_STATE;
+			win = true;
+		} else if (currentState == 1 && heart.hearts == 0) {
+			currentState = END_STATE;
+			win = false;
+		} 
+		currentState = 2;
+		win = true;
 		manager.update();
 	}
 
 	void drawEndState(Graphics g) {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, ZombieShooter.WIDTH, ZombieShooter.HEIGHT);
-
-		ZombieShooter.youdied.paintIcon(this, g, 0, 50);
-		playSound("deathsound.wav");
+        if(win) {
+        	    ZombieShooter.youwin.paintIcon(this, g, 140, 250);
+        }else if (win == false){
+        	    ZombieShooter.youdied.paintIcon(this, g, 0, 50);
+          	playSound("deathsound.wav");
+        }
 	}
 
 	void updateEndState() {
@@ -232,20 +246,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState < GAME_STATE) {
 				currentState++;
-			} else if (currentState == END_STATE) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					currentState = MENU_STATE;
-				}
-			} else if (currentState == GAME_STATE && heart.hearts == 0) {
-				currentState = END_STATE;
-			}
+			} 
 			if (currentState == 1) {
 				this.setCursor(ZombieShooter.blankCursor);
 			} else if (currentState != 1) {
 				this.setCursor(Cursor.getDefaultCursor());
 			}
 		}
-
+		
 		if (reloadTime <= 0 && e.getKeyCode() == KeyEvent.VK_R) {
 			playGunshot("reload.wav");
 			reloadTime = 300;

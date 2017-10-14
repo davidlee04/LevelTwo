@@ -83,6 +83,14 @@ public class ObjectManager {
 			}
 		}
 	}
+	
+	public boolean checkWin() {
+		if(zombies.size() == 0 && spawner.currentWave==7) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 
 	/*
 	 * public ArrayList<NormalZombie> getZombies() { return zombies; }
