@@ -154,10 +154,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 			}
 		}
 
-		if (heart.hearts <= 0) {
-			currentState = END_STATE;
-		}
-
 		manager.draw(g);
 		manager.checkZombieHit();
 		manager.killZombie();
@@ -165,15 +161,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 
 	void updateGameState() {
 		if (currentState == 1 && manager.checkWin() == true) {
-			currentState = END_STATE;
 			win = true;
-		} else if (currentState == 1 && heart.hearts == 0) {
 			currentState = END_STATE;
+		} else if (currentState == 1 && heart.hearts == 0) {
 			win = false;
+			currentState = END_STATE;
 		} 
-		currentState = 2;
-		win = true;
 		manager.update();
+		
 	}
 
 	void drawEndState(Graphics g) {
@@ -244,7 +239,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			if (currentState < GAME_STATE) {
+			if (currentState < 1) {
 				currentState++;
 			} 
 			if (currentState == 1) {
