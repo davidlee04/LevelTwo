@@ -163,7 +163,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener, Mo
 		if (currentState == 1 && manager.checkWin() == true) {
 			win = true;
 			currentState = END_STATE;
-		} else if (currentState == 1 && heart.hearts == 0) {
+		} else if (currentState == 1 && heart.hearts <= 0) {
 			win = false;
 			currentState = END_STATE;
 		} 
